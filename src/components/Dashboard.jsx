@@ -1,12 +1,29 @@
 import logo from '../logo.svg';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { increment, decrement } from "../redux/counterSlice";
+import { setAuthorization} from "../redux/currentuserSlice";
 
 function Dashboard() {
+    const counter = useSelector((state) => state.counter)
+    const currentuser = useSelector((state) => state.currentuser)
+    const dispatch = useDispatch()
+
+    const increaseCount = () => {
+        dispatch(increment())
+    }
+    const decreaseCount = () => {
+        dispatch(decrement())
+    }
+    const dispatchSetAuthorization = (auth) => {
+        dispatch(setAuthorization(auth))
+    }
+
     const navigate = useNavigate()
-    const handleClick = () => {
+    const handleClick = async () => {
     // Perform the request when the button is clicked
-    fetch('http://127.0.0.1:3000/login', {
+    const resp = await fetch('http://127.0.0.1:3000/login', {
         method: 'POST', // Specify the request method as POST
         headers: {
         'Content-Type': 'application/json' // Set the Content-Type header to indicate JSON data
@@ -19,14 +36,9 @@ function Dashboard() {
         }}
         ) // Replace with the desired request body
     })
-        .then(response => {
-        // Handle the response as needed
-        console.log(response);
-        })
-        .catch(error => {
-        // Handle any errors that occur during the request
-        console.error(error);
-        });
+    let userData = await resp.json()
+    dispatchSetAuthorization(userData.headers.Authorization)
+    console.log(userData);
     };
 
     const handleLogout = () => {
@@ -35,7 +47,7 @@ function Dashboard() {
         method: 'DELETE', // Specify the request method as POST
         headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0M2U2NWQzOC1jMGU1LTQzYmEtOWY2Zi0zZGU1NThjOTEwODUiLCJzdWIiOiIxIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjg4OTYxNTE5LCJleHAiOjE2ODg5NjMzMTl9.Q1PAeYui7m4Sq1N-1pWjZh11bpppLgnID4rxZP4p_uE'
+        'Authorization': currentuser.authorization
         },
         // body: JSON.stringify({user: { 
         //   // body:'byebug'
@@ -47,6 +59,7 @@ function Dashboard() {
         .then(response => {
         // Handle the response as needed
         console.log(response);
+        dispatchSetAuthorization('')
         })
         .catch(error => {
         // Handle any errors that occur during the request
@@ -58,6 +71,7 @@ function Dashboard() {
         navigate('/home')
     }
 
+
     return (
         <div className="App">
             <header className="App-header">
@@ -65,8 +79,8 @@ function Dashboard() {
             <p>
                 Edit <code>src/App.js</code> and save to reload.
             </p>
-            <button onClick={handleClick}>Click me</button>
-            <button onClick={handleLogout}>logout</button>
+            <button onClick={handleClick}>Login</button>
+            <button onClick={handleLogout}>Logout</button>
             <a
                 className="App-link"
                 href="https://reactjs.org"
@@ -76,6 +90,11 @@ function Dashboard() {
                 Learn React
             </a>
             <button onClick={handleGoToHome}>Home</button>
+            <div>
+                <p>Count: {counter.count}</p>
+            </div>
+            <button onClick={increaseCount}>Increase</button>
+            <button onClick={decreaseCount}>Decrease</button>
             </header>
         </div>
     );
