@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { increment, decrement } from "../redux/counterSlice";
 import { setAuthorization} from "../redux/currentuserSlice";
+import { useEffect } from 'react';
 
 function Dashboard() {
     const counter = useSelector((state) => state.counter)
@@ -38,7 +39,6 @@ function Dashboard() {
     })
     let userData = await resp.json()
     dispatchSetAuthorization(userData.headers.Authorization)
-    console.log(userData);
     };
 
     const handleLogout = () => {
@@ -58,7 +58,6 @@ function Dashboard() {
     })
         .then(response => {
         // Handle the response as needed
-        console.log(response);
         dispatchSetAuthorization('')
         })
         .catch(error => {
@@ -70,7 +69,6 @@ function Dashboard() {
     const handleGoToHome = () => {
         navigate('/home')
     }
-
 
     return (
         <div className="App">
