@@ -1,3 +1,4 @@
+import MessagesPage from "./MessagesPage";
 import SideNav from "./SideNav";
 import TopNav from "./TopNav";
 
@@ -5,9 +6,12 @@ import TopNav from "./TopNav";
 function Main () {
 
     return (
-        <div flex flex-col>
+        <div class ="flex flex-col w-full h-screen">
             <TopNav/>
-            <SideNav/>
+            <div class= "flex">
+                <SideNav/>
+                <MessagesPage/>
+            </div>
         </div>
     ) 
 }

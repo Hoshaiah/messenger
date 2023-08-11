@@ -5,17 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from 'react-redux'
-import counterReducer from "./redux/counterSlice";
-import currentuserReducer from "./redux/currentuserSlice";
+import store from './redux/store'
 
-
-
-const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-    currentuser: currentuserReducer
-  },
-});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
