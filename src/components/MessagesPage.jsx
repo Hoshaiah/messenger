@@ -17,16 +17,16 @@ function MessagesPage () {
         })) 
     }
     return (
-        <div class = "w-full h-screen bg-slate-200">
-           <div>
+        <div class = "flex flex-col w-full justify-around bg-slate-200">
+           <div class='h-10'>
                 <h1>Hosh Domingo</h1> 
             </div> 
-            <div>
+            <div class='flex flex-1'>
                 {messagesState.messageGroup[messagesState.currentMessageView] && messagesState.messageGroup[messagesState.currentMessageView].map((message) => (
                     <p>{message}</p>
                 ))}
             </div>
-            <div>
+            <div class='h-20'>
                 <input ref={inputMessage}></input>
                 <button onClick={handleSendMessage}>updateMessage</button>
             </div>

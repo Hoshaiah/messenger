@@ -12,7 +12,7 @@ function SideNav () {
     const currentuser = useSelector((state)=> state.currentuser)
     const sample = ['Hello', 'bye', 'good']
     return(
-        <div class="flex justify-center h-screen w-72 bg-slate-800">
+        <div class="flex justify-center w-80 bg-slate-800">
             <div class = "flex flex-col w-40">
                 {sample.map((item) => (
                     <p>{item}</p>
