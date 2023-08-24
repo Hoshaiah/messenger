@@ -13,14 +13,16 @@ function TopNav () {
         if (logoutData.status === 200) {
             dispatch(setAuthorization(''))
             Cookies.remove('jwt_token');
-
+        } else if (logoutData.status === 500 ) {
+            dispatch(setAuthorization(''))
+            Cookies.remove('jwt_token');
         }
     }
 
     return (
-        <div class="flex items-center justify-center w-full h-10 bg-slate-400" >
+        <div class="flex items-center justify-center w-full h-10 bg-slate-400 overflow-visible" >
             <SearchBar/>
-            <button onClick={handleLogoutClick} >Logout</button>
+            <button class= 'absolute right-0 mr-2 text-white' onClick={handleLogoutClick} >Logout</button>
         </div>
     )
 }
