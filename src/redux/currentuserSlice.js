@@ -5,14 +5,17 @@ const currentuserSlice = createSlice({
   name: "currentuser",
   initialState: {
     authorization: '',
-    id: '',
+    userInfo: {},
   },
   reducers: {
     setAuthorization: (state, action) => {
-        state.authorization = action.payload;
+      state.authorization = action.payload;
+    },
+    setCurrentUserInfo: (state, action) => {
+      state.userInfo = action.payload
     },
   },
 });
 
-export const { setAuthorization } = currentuserSlice.actions;
+export const { setAuthorization, setCurrentUserInfo} = currentuserSlice.actions;
 export default currentuserSlice.reducer;

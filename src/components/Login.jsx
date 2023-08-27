@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthorization} from "../redux/currentuserSlice";
+import { setAuthorization, setCurrentUserInfo} from "../redux/currentuserSlice";
 import Constants from '../constants';
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
@@ -37,7 +37,9 @@ function Login () {
         let userData = await resp.json()
         const authorization = userData.headers.Authorization
         Cookies.set('jwt_token', authorization)
+        localStorage.userInfo = JSON.stringify(userData.data.user)
         dispatchSetAuthorization(authorization)
+        dispatch(setCurrentUserInfo(userData.data.user)) 
         
         if(userData.status.code === 200) {
             navigate('/')

@@ -10,15 +10,16 @@ import PrivateRoute from './components/PrivateRoute';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
-import { setAuthorization } from './redux/currentuserSlice';
+import { setAuthorization, setCurrentUserInfo } from './redux/currentuserSlice';
 
 function App() {
   const dispatch = useDispatch()
   const currentuser = useSelector((state) => state.currentuser)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const jwt_token = Cookies.get('jwt_token')
+  const userInfo = localStorage.userInfo ? JSON.parse(localStorage.userInfo) : ''
   dispatch(setAuthorization(jwt_token))
-
+  
   useEffect(() => {
     if(currentuser.authorization) {
       setIsAuthenticated(true)
@@ -26,6 +27,10 @@ function App() {
       setIsAuthenticated(false)
     }
   }, [currentuser])
+
+  useEffect(() => {
+    dispatch(setCurrentUserInfo(userInfo))
+  },[])
   
   return (
     <Router>
