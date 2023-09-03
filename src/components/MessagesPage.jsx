@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateMessage, updateCurrentMessageView, loadMessages} from "../redux/messagesSlice";
 import InputMessage from "./InputMessage";
 import { retrieveMessages } from "../services/actionServices";
+import { setAuthorization, setCurrentUserInfo } from "../redux/currentuserSlice";
+import Cookies from "js-cookie";
 
 
 
@@ -14,10 +16,17 @@ function MessagesPage () {
     useEffect( () => {
         const fetchMessages = async () => {
             const messagesData = await retrieveMessages(currentuserState.authorization, 'User', 1)
-            dispatch(loadMessages({
-                id: 'Mark',
-                messages: messagesData.data
-            }))
+            if (messagesData.status===200) {
+                dispatch(loadMessages({
+                    id: 'Mark',
+                    messages: messagesData.data
+                }))
+            } else if (messagesData.status===500) {
+                dispatch(setAuthorization(''))
+                Cookies.remove('jwt_token');
+                localStorage.userInfo = ''
+                dispatch(setCurrentUserInfo({}))
+            }
         }
         fetchMessages()
     },[])

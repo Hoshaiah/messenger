@@ -26,6 +26,7 @@ export const retrieveMessages = async (auth, recipient_type, sender_id) => {
         // })
     })
     const data = await resp.json()
+    data.status = resp.status
     return data
 }
 
@@ -55,6 +56,7 @@ export const retrieveFriends = async (auth) => {
         },
     })
     const data = await resp.json()
+    data.status = resp.status
     return data
 }
 

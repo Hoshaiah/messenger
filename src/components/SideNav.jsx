@@ -3,10 +3,11 @@ import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { increment, decrement } from "../redux/counterSlice";
-import { setAuthorization} from "../redux/currentuserSlice";
 import { useEffect, useState } from 'react';
 import { getUserChannels, retrieveFriends, retrieveMessages} from '../services/actionServices';
 import { updateCurrentMessageView, loadMessages} from '../redux/messagesSlice';
+import { setAuthorization, setCurrentUserInfo } from "../redux/currentuserSlice";
+import Cookies from "js-cookie";
 
 
 function SideNav () {
@@ -22,14 +23,20 @@ function SideNav () {
         }
         fetchFriends()
     },[])
-
     const handleFriendClick = (id) => {
         const fetchMessages = async () => {
             const messagesData = await retrieveMessages(currentuser.authorization, 'User', id)
-            dispatch(loadMessages({
-                id: id,
-                messages: messagesData.data
-            }))
+            if (messagesData.status === 200) {
+                dispatch(loadMessages({
+                    id: id,
+                    messages: messagesData.data
+                }))
+            } else if (messagesData.status ===500) {
+                dispatch(setAuthorization(''))
+                Cookies.remove('jwt_token');
+                localStorage.userInfo = ''
+                dispatch(setCurrentUserInfo({}))
+            }
         }
         fetchMessages()
         dispatch(updateCurrentMessageView(id))
@@ -38,7 +45,7 @@ function SideNav () {
         <div class="fixed flex h-[calc(100vh-40px)] top-10 justify-center w-80 bg-slate-800 border-slate-600 border">
             <div class = "flex flex-col w-40">
                 {friendsList.map((item) => (
-                    <button class="bg-white" onClick={() => handleFriendClick(item.id)}>{item.name}</button>
+                    <button class="bg-white m-1" onClick={() => handleFriendClick(item.id)}>{ item.name ? item.name: item.email}</button>
                 ))}
             </div>
         </div>

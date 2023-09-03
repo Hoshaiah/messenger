@@ -12,7 +12,6 @@ function InputMessage() {
     const handleKeyDown = (e) => {
         const handleSendMessage = async () => {
             const resp = await sendMessage(currentuser.authorization, 'User', messagesState.currentMessageView , inputMessage.current.value)
-            console.log(resp)
         }
 
         if (e.key === "Enter" && inputMessage.current.value.length > 0) {
