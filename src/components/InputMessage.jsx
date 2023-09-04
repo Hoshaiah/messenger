@@ -1,13 +1,38 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateMessage, updateCurrentMessageView } from "../redux/messagesSlice";
 import { sendMessage } from "../services/actionServices";
+import consumer from '../cable';
 
 function InputMessage() {
     const dispatch = useDispatch()
     const messagesState = useSelector((state) => state.messages)
     const currentuser = useSelector((state) => state.currentuser)
     const inputMessage = useRef(null)
+
+    const cableRef = useRef(null)
+    useEffect(() => {
+        const channel = consumer.subscriptions.create({
+            channel: 'MessageChannel',
+            username: 'Hoshbruh',
+          }, {
+            connected: () => {
+                console.log('connected')
+                cableRef.current = channel
+            },
+            disconnected: () => console.log('disconnected'),
+            received: (data) => {
+                // handleNewMessage(data)
+            },
+          })
+        cableRef.current = channel
+        // channel.send({ message: 'Hello from React app' });
+        return () => {
+            // consumer.disconnect()
+            // consumer.subscriptions.remove(channel)
+            channel.unsubscribe()
+        }
+    }, [])
 
     const handleKeyDown = (e) => {
         const handleSendMessage = async () => {
@@ -24,6 +49,7 @@ function InputMessage() {
                     recipient_id: messagesState.currentMessageView
                 }
             })) 
+            cableRef.current.send({ message: inputMessage.current.value })
             inputMessage.current.value = ''
         }
     }
