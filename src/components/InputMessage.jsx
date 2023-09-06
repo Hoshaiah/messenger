@@ -14,7 +14,7 @@ function InputMessage() {
     useEffect(() => {
         const channel = consumer.subscriptions.create({
             channel: 'MessageChannel',
-            username: 'Hoshbruh',
+            username: currentuser.userInfo.id
           }, {
             connected: () => {
                 console.log('connected')
@@ -49,7 +49,7 @@ function InputMessage() {
                     recipient_id: messagesState.currentMessageView
                 }
             })) 
-            cableRef.current.send({ message: inputMessage.current.value })
+            // cableRef.current.send({ message: inputMessage.current.value, recipient_id: messagesState.currentMessageView, recipient_type: 'User' })
             inputMessage.current.value = ''
         }
     }
