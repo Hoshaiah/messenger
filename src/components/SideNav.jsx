@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 
 function SideNav () {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const currentuser = useSelector((state)=> state.currentuser)
     const sample = ['Hello', 'bye', 'good']
     const [friendsList, setFriendsList] = useState([])
@@ -31,11 +32,12 @@ function SideNav () {
                     id: id,
                     messages: messagesData.data
                 }))
-            } else if (messagesData.status ===500) {
+            } else if (messagesData.status > 400) {
                 dispatch(setAuthorization(''))
                 Cookies.remove('jwt_token');
                 localStorage.userInfo = ''
                 dispatch(setCurrentUserInfo({}))
+                navigate('/login')
             }
         }
         fetchMessages()

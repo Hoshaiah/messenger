@@ -3,8 +3,10 @@ import { logoutUser } from "../services/actionServices";
 import SearchBar from "./SearchBar";
 import { setAuthorization, setCurrentUserInfo } from "../redux/currentuserSlice";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 function TopNav () {
+    const navigate = useNavigate()
     const currentuser = useSelector((state) => state.currentuser)
     const dispatch = useDispatch()
 
@@ -15,11 +17,12 @@ function TopNav () {
             Cookies.remove('jwt_token');
             localStorage.userInfo = ''
             dispatch(setCurrentUserInfo({}))
-        } else if (logoutData.status === 500 ) {
+        } else if (logoutData.status > 400 ) {
             dispatch(setAuthorization(''))
             Cookies.remove('jwt_token');
             localStorage.userInfo = ''
             dispatch(setCurrentUserInfo({}))
+            navigate('/login')
         }
     }
 
