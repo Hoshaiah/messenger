@@ -12,6 +12,7 @@ function MessagesPage () {
     const dispatch = useDispatch()
     const messagesState = useSelector((state) => state.messages)
     const currentuserState = useSelector((state) => state.currentuser)
+    const scrollRef = useRef(null)
 
     useEffect( () => {
         const fetchMessages = async () => {
@@ -31,12 +32,20 @@ function MessagesPage () {
         fetchMessages()
     },[])
 
+    useEffect(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTo({
+            top: scrollRef.current.scrollHeight,
+            behavior: 'smooth',
+          });
+        }
+      }, [messagesState]);
     return (
         <div class = "fixed top-10 left-80 p-0 w-[calc(100vw-320px)] h-[calc(100vh-120px)] flex flex-col justify-between">
            <div class='h-10 w-full bg-slate-800 text-white border border-slate-600'>
-                <h1 class='m-2'>Hosh Domingo</h1> 
+                <h1 class='m-2'>{messagesState.currentMessageView}</h1> 
             </div> 
-            <div class='flex flex-1 flex-col overflow-y-scroll pb-2 bg-slate-200'>
+            <div ref={scrollRef} class='flex flex-1 flex-col overflow-y-scroll pb-2 bg-slate-200'>
                 {messagesState.messageGroup[messagesState.currentMessageView] && messagesState.messageGroup[messagesState.currentMessageView].map((message) => (
                     <div class="flex w-full">
                         {message.sender_id === currentuserState.userInfo.id ?

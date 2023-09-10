@@ -17,8 +17,8 @@ function Home() {
     useEffect(() => {
         const channel = consumer.subscriptions.create({
             channel: 'MessageChannel',
-            stream: 'private_chat_2',
-            username: '2',
+            stream: 'private_chat_1',
+            username: '1',
           }, {
             connected: () => {
                 console.log('connected')
@@ -26,7 +26,8 @@ function Home() {
             },
             disconnected: () => console.log('disconnected'),
             received: (data) => {
-                handleNewMessage(data)
+                console.log(data)
+                // handleNewMessage(data)
             },
           })
         cableRef.current = channel
@@ -38,7 +39,7 @@ function Home() {
         }
     }, [])
     const handleSubmit = () => {
-        cableRef.current.send({ user: 2, message: broadcastMessage.current.value })
+        cableRef.current.send({ user: 1, message: broadcastMessage.current.value })
     }
 
     const handleNewMessage = (newMessage) => {

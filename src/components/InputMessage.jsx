@@ -10,29 +10,29 @@ function InputMessage() {
     const currentuser = useSelector((state) => state.currentuser)
     const inputMessage = useRef(null)
 
-    const cableRef = useRef(null)
-    useEffect(() => {
-        const channel = consumer.subscriptions.create({
-            channel: 'MessageChannel',
-            username: currentuser.userInfo.id
-          }, {
-            connected: () => {
-                console.log('connected')
-                cableRef.current = channel
-            },
-            disconnected: () => console.log('disconnected'),
-            received: (data) => {
-                // handleNewMessage(data)
-            },
-          })
-        cableRef.current = channel
-        // channel.send({ message: 'Hello from React app' });
-        return () => {
-            // consumer.disconnect()
-            // consumer.subscriptions.remove(channel)
-            channel.unsubscribe()
-        }
-    }, [])
+    // const cableRef = useRef(null)
+    // useEffect(() => {
+    //     const channel = consumer.subscriptions.create({
+    //         channel: 'MessageChannel',
+    //         username: currentuser.userInfo.id
+    //       }, {
+    //         connected: () => {
+    //             console.log('connected')
+    //             cableRef.current = channel
+    //         },
+    //         disconnected: () => console.log('disconnected'),
+    //         received: (data) => {
+    //             // handleNewMessage(data)
+    //         },
+    //       })
+    //     cableRef.current = channel
+    //     // channel.send({ message: 'Hello from React app' });
+    //     return () => {
+    //         // consumer.disconnect()
+    //         // consumer.subscriptions.remove(channel)
+    //         channel.unsubscribe()
+    //     }
+    // }, [])
 
     const handleKeyDown = (e) => {
         const handleSendMessage = async () => {
