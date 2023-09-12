@@ -9,8 +9,13 @@ export const logoutUser = async (auth) => {
             'Authorization': auth,
         },
     })
-    const data = await resp.json()
-    return data
+
+    if(resp.status >=200 && resp.status <= 300) {
+        const data = await resp.json()
+        return data
+    } else {
+        return resp
+    }
 }
 
 export const retrieveMessages = async (auth, recipient_type, sender_id) => {
@@ -25,9 +30,13 @@ export const retrieveMessages = async (auth, recipient_type, sender_id) => {
         //     sender_id,
         // })
     })
-    const data = await resp.json()
-    data.status = resp.status
-    return data
+    if(resp.status >=200 && resp.status <= 300) {
+        const data = await resp.json()
+        data.status = resp.status
+        return data
+    } else {
+        return resp
+    }
 }
 
 export const sendMessage = async (auth, recipient_type, recipient_id, textbody) => {
@@ -43,8 +52,13 @@ export const sendMessage = async (auth, recipient_type, recipient_id, textbody) 
             body: textbody,
         })
     })
-    const data = await resp.json()
-    return data
+    if(resp.status >=200 && resp.status <= 300) {
+        const data = await resp.json()
+        data.status = resp.status
+        return data
+    } else {
+        return resp
+    }
 }
 
 export const retrieveFriends = async (auth) => {
@@ -55,9 +69,13 @@ export const retrieveFriends = async (auth) => {
             'Authorization': auth
         },
     })
-    const data = await resp.json()
-    data.status = resp.status
-    return data
+    if(resp.status >=200 && resp.status <= 300) {
+        const data = await resp.json()
+        data.status = resp.status
+        return data
+    } else {
+        return resp
+    }
 }
 
 export const getUserChannels = async (auth) => {
