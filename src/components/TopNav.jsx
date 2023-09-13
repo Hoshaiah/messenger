@@ -15,11 +15,13 @@ function TopNav () {
         if (logoutData.status === 200) {
             dispatch(setAuthorization(''))
             Cookies.remove('jwt_token');
+            Cookies.remove('user_id');
             localStorage.userInfo = ''
             dispatch(setCurrentUserInfo({}))
         } else if (logoutData.status > 400 ) {
             dispatch(setAuthorization(''))
             Cookies.remove('jwt_token');
+            Cookies.remove('user_id');
             localStorage.userInfo = ''
             dispatch(setCurrentUserInfo({}))
             navigate('/login')

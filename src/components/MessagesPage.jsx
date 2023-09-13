@@ -25,6 +25,7 @@ function MessagesPage () {
             } else if (messagesData.status===500) {
                 dispatch(setAuthorization(''))
                 Cookies.remove('jwt_token');
+                Cookies.remove('user_id');
                 localStorage.userInfo = ''
                 dispatch(setCurrentUserInfo({}))
             }

@@ -37,6 +37,7 @@ function Login () {
         let userData = await resp.json()
         const authorization = userData.headers.Authorization
         Cookies.set('jwt_token', authorization)
+        Cookies.set('user_id', userData.data.user.id)
         localStorage.userInfo = JSON.stringify(userData.data.user)
         dispatchSetAuthorization(authorization)
         dispatch(setCurrentUserInfo(userData.data.user)) 

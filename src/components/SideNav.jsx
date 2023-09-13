@@ -35,6 +35,7 @@ function SideNav () {
             } else if (messagesData.status > 400) {
                 dispatch(setAuthorization(''))
                 Cookies.remove('jwt_token');
+                Cookies.remove('user_id');
                 localStorage.userInfo = ''
                 dispatch(setCurrentUserInfo({}))
                 navigate('/login')
