@@ -14,6 +14,7 @@ function Login () {
     const loginPassword = useRef()
     const signupEmail = useRef()
     const signupPassword= useRef()
+    const signupName= useRef()
 
     const dispatchSetAuthorization = (auth) => {
         dispatch(setAuthorization(auth))
@@ -59,6 +60,7 @@ function Login () {
                 user: { 
                     email: signupEmail.current.value,
                     password: signupPassword.current.value,
+                    name: signupName.current.value,
                 }
             })})
             let userData = await resp.json()
@@ -90,6 +92,12 @@ function Login () {
         
               <h2 className="text-2xl font-bold mt-6 mb-4">Sign Up</h2>
                 <div>
+                    <input
+                        className="block w-full mb-2 p-2 border rounded"
+                        type="text"
+                        placeholder="Name"
+                        ref={signupName} 
+                    />
                     <input
                         className="block w-full mb-2 p-2 border rounded"
                         type="email"
