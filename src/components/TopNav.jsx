@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../services/actionServices";
+import { logoutUser, retrieveFriendrequests } from "../services/actionServices";
 import SearchBar from "./SearchBar";
 import { setAuthorization, setCurrentUserInfo } from "../redux/currentuserSlice";
 import Cookies from "js-cookie";
@@ -13,6 +13,7 @@ function TopNav () {
     const [friendBox, setFriendBox] = useState()
     const friendDiv = useRef()
     const friendRequestButton = useRef()
+    const [friendRequests, setFriendRequests] = useState([])
 
     const handleLogoutClick = async () => {
         const logoutData = await logoutUser(currentuser.authorization)
@@ -30,6 +31,11 @@ function TopNav () {
             dispatch(setCurrentUserInfo({}))
             navigate('/login')
         }
+    }
+
+    const handleFriendrequestClick = async ()=> {
+        const friendrequests = await retrieveFriendrequests(currentuser.authorization, currentuser.userInfo.id)
+
     }
 
     useEffect(() => {
@@ -50,8 +56,13 @@ function TopNav () {
         <div class="flex items-center justify-center w-full h-10 bg-slate-800 border border-slate-600 overflow-visible" >
             <SearchBar/>
             <button ref={friendRequestButton} class= 'absolute right-28 mr-2 text-white' onClick={() => {setFriendBox(true)}} >Friend Requests</button>
+            {friendBox && 
+                <div ref={friendDiv} class='absolute rounded-sm right-16 w-60 h-80 top-8 z-40 bg-slate-300'>
+                    {friendRequests && friendRequests.map((req)=>(
+                        <div>{req.id}</div>
+                    ))}
+                </div>}
             <button class= 'absolute right-5 mr-2 text-white' onClick={handleLogoutClick} >Logout</button>
-            {friendBox && <div ref={friendDiv} class='absolute rounded-sm right-16 w-60 h-80 top-8 z-40 bg-slate-300'></div>}
         </div>
     )
 }
