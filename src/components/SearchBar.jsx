@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect} from "react";
+import DebouncedInput from "./DebouncedInput";
 
 function SearchBar () {
     const [borderFocus, setBorderFocus] = useState(false)
@@ -41,7 +42,11 @@ function SearchBar () {
                   <button ref={buttonRef}class= {`w-64 h-6 rounded-sm bg-white mt-2 ${borderFocus ? 'hidden' : ''} text-slate-400`} onClick={handleSearchBarButtonClick}> {searchInput ? `Search: ${searchInput}` : 'Add friend'}</button>
                   {borderFocus && 
                       <div ref={bigSearchRef} id= 'input2' class = "flex w-full h-full overflow-visible justify-center bg-slate-600">
-                          <input class ="w-full h-10 m-2 p-2 rounded-sm bg-white z-10 focus:outline-none" ref={searchRef} onChange={(e) => {setSearchInput(e.target.value)}} value={searchInput} placeholder="search for email, name, or id"></input>            
+                          <DebouncedInput
+                            searchRef={searchRef}
+                            searchInput={searchInput}
+                            setSearchInput={setSearchInput}
+                          />
                       </div>
                   }
           </div>
