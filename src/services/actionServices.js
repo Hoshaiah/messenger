@@ -1,5 +1,48 @@
 import Constants from "../constants"
 
+export const loginUser = async(email, password) => {
+    const resp = await fetch(`${Constants.server}login`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+        // {name: 'sample2'}
+        { 
+            user: { 
+                email: email,
+                password: password
+            }
+        })})
+        if(resp.status >=200 && resp.status <= 300) {
+            const data = await resp.json()
+            return data
+        } else {
+            return resp
+        }
+}
+
+export const signupUser = async(name, email, password) => {
+    const resp = await fetch(`${Constants.server}signup`, {
+        method: 'POST', 
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+        {
+            user: { 
+                email: email,
+                password: password,
+                name: name,
+            }
+        })})
+        if(resp.status >=200 && resp.status <= 300) {
+            const data = await resp.json()
+            return data
+        } else {
+            return resp
+        }
+}
 
 export const logoutUser = async (auth) => {
     const resp = await fetch(`${Constants.server}logout`, {

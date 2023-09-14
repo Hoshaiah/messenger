@@ -4,6 +4,7 @@ import Constants from '../constants';
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
 import Cookies from 'js-cookie';
+import { loginUser, signupUser } from '../services/actionServices';
 
 function Login () {
     const counter = useSelector((state) => state.counter)
@@ -20,54 +21,25 @@ function Login () {
         dispatch(setAuthorization(auth))
     }
 
-    const handleLoginSubmit = async () => {
-    // Perform the request when the button is clicked
-    const resp = await fetch(`${Constants.server}login`, {
-        method: 'POST', // Specify the request method as POST
-        headers: {
-        'Content-Type': 'application/json' // Set the Content-Type header to indicate JSON data
-        },
-        body: JSON.stringify(
-        // {name: 'sample2'}
-        { 
-            user: { 
-                email: loginEmail.current.value,
-                password: loginPassword.current.value,
-            }
-        })})
-        let userData = await resp.json()
-        const authorization = userData.headers.Authorization
-        Cookies.set('jwt_token', authorization)
-        Cookies.set('user_id', userData.data.user.id)
-        localStorage.userInfo = JSON.stringify(userData.data.user)
-        dispatchSetAuthorization(authorization)
-        dispatch(setCurrentUserInfo(userData.data.user)) 
-        
-        if(userData.status.code === 200) {
-            navigate('/')
-        }
-    };
-
-    const handleSignupSubmit = async () => {
-        const resp = await fetch(`${Constants.server}signup`, {
-            method: 'POST', // Specify the request method as POST
-            headers: {
-            'Content-Type': 'application/json' // Set the Content-Type header to indicate JSON data
-            },
-            body: JSON.stringify(
-            // {name: 'sample2'}
-            {
-                user: { 
-                    email: signupEmail.current.value,
-                    password: signupPassword.current.value,
-                    name: signupName.current.value,
-                }
-            })})
-            let userData = await resp.json()
+    const handleLoginSubmit = async (email , password) => {
+            const userData = await loginUser(email, password)
+            const authorization = userData.headers.Authorization
+            Cookies.set('jwt_token', authorization)
+            Cookies.set('user_id', userData.data.user.id)
+            localStorage.userInfo = JSON.stringify(userData.data.user)
+            dispatchSetAuthorization(authorization)
+            dispatch(setCurrentUserInfo(userData.data.user)) 
             
             if(userData.status.code === 200) {
                 navigate('/')
             }
+    };
+
+    const handleSignupSubmit = async () => {
+        const userData = await signupUser(signupName.current.value, signupEmail.current.value, signupPassword.current.value)
+        if(userData.status.code === 200) {
+            handleLoginSubmit(signupEmail.current.value, signupPassword.current.value)
+        }
     }
     return (
             <div className="max-w-md mx-auto mt-8 p-6 bg-white border rounded-lg shadow-lg">
@@ -85,7 +57,7 @@ function Login () {
                     placeholder="Password"
                     ref={loginPassword} 
                 />
-                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" onClick={handleLoginSubmit}>
+                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" onClick={() => {handleLoginSubmit(loginEmail.current.value, loginPassword.current.value)}}>
                     Login
                 </button>
               </div>
