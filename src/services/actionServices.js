@@ -122,17 +122,12 @@ export const retrieveFriends = async (auth) => {
 }
 
 export const retrieveFriendrequests = async (auth, friend_id) => {
-    const resp = await fetch(`${Constants.server}friendrequest`, {
+    const resp = await fetch(`${Constants.server}friendrequests?friendrequests[friend_id]=${friend_id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': auth
         },
-        body: JSON.stringify({
-            friendrequests: {
-                friend_id: friend_id
-            }
-        })
     })
     if(resp.status >= 200 && resp.status <= 300) {
         const data = await resp.json()

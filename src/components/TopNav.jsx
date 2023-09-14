@@ -34,8 +34,12 @@ function TopNav () {
     }
 
     const handleFriendrequestClick = async ()=> {
-        const friendrequests = await retrieveFriendrequests(currentuser.authorization, currentuser.userInfo.id)
+        const data = await retrieveFriendrequests(currentuser.authorization, currentuser.userInfo.id)
 
+        if (data.status === 200) {
+            setFriendRequests(data.friendrequests)
+        }
+        setFriendBox(true)
     }
 
     useEffect(() => {
@@ -55,11 +59,11 @@ function TopNav () {
     return (
         <div class="flex items-center justify-center w-full h-10 bg-slate-800 border border-slate-600 overflow-visible" >
             <SearchBar/>
-            <button ref={friendRequestButton} class= 'absolute right-28 mr-2 text-white' onClick={() => {setFriendBox(true)}} >Friend Requests</button>
+            <button ref={friendRequestButton} class= 'absolute right-28 mr-2 text-white' onClick={handleFriendrequestClick} >Friend Requests</button>
             {friendBox && 
                 <div ref={friendDiv} class='absolute rounded-sm right-16 w-60 h-80 top-8 z-40 bg-slate-300'>
                     {friendRequests && friendRequests.map((req)=>(
-                        <div>{req.id}</div>
+                        <div>{req.name || req.email}</div>
                     ))}
                 </div>}
             <button class= 'absolute right-5 mr-2 text-white' onClick={handleLogoutClick} >Logout</button>
