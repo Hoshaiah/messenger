@@ -51,7 +51,7 @@ function TopNav () {
             <SearchBar/>
             <button ref={friendRequestButton} class= 'absolute right-28 mr-2 text-white' onClick={() => {setFriendBox(true)}} >Friend Requests</button>
             <button class= 'absolute right-5 mr-2 text-white' onClick={handleLogoutClick} >Logout</button>
-            {friendBox && <div ref={friendDiv} class='absolute right-16 w-60 h-80 top-8 z-40 bg-slate-300'></div>}
+            {friendBox && <div ref={friendDiv} class='absolute rounded-sm right-16 w-60 h-80 top-8 z-40 bg-slate-300'></div>}
         </div>
     )
 }
