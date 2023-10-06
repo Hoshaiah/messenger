@@ -138,6 +138,28 @@ export const retrieveFriendrequests = async (auth, friend_id) => {
     }
 }
 
+export const sendFriendrequest = async (auth, user_id, friend_id) => {
+    const resp = await fetch(`${Constants.server}friendrequests`, {
+        method: 'POst',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': auth
+        },
+        body: JSON.stringify({
+            friendrequests: {
+                user_id,
+                friend_id
+            }
+        })
+    })
+    if(resp.status >= 200 && resp.status <= 300) {
+        const data = await resp.json()
+        data.status = resp.status
+        return data
+    } else {
+        return resp
+    }
+}
 export const getUserChannels = async (auth) => {
     const resp = await fetch(`${Constants.server}channels`, {
         method: 'GET', // Specify the request method as POST

@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser, retrieveFriendrequests } from "../services/actionServices";
+import { logoutUser, retrieveFriendrequests, sendFriendrequest } from "../services/actionServices";
 import SearchBar from "./SearchBar";
 import { setAuthorization, setCurrentUserInfo } from "../redux/currentuserSlice";
 import Cookies from "js-cookie";
@@ -36,10 +36,18 @@ function TopNav () {
     const handleFriendrequestClick = async ()=> {
         const data = await retrieveFriendrequests(currentuser.authorization, currentuser.userInfo.id)
 
-        if (data.status === 200) {
+        if (data.status >= 200 && data.status < 300) {
             setFriendRequests(data.friendrequests)
         }
         setFriendBox(true)
+    }
+
+    const handleAcceptFriendrequestClick = async (friend_id) => {
+       const data = await sendFriendrequest(currentuser.authorization, currentuser.userInfo.id, friend_id ) 
+       
+        if (data.status >= 200 && data.status <300) {
+            handleFriendrequestClick()
+        }
     }
 
     useEffect(() => {
@@ -63,7 +71,16 @@ function TopNav () {
             {friendBox && 
                 <div ref={friendDiv} class='absolute rounded-sm right-16 w-60 h-80 top-8 z-40 bg-slate-300'>
                     {friendRequests && friendRequests.map((req)=>(
-                        <div>{req.name || req.email}</div>
+                        <div class="flex p-1 border-b-2 border-slate-200 py-2">
+                            <div class="flex justify-center items-center rounded-full bg-slate-200 w-16 h-12 text-slate-800">{req.name[0].toUpperCase()}</div>
+                            <div class=" w-full">
+                                <p class="ml-4">{req.name}</p>
+                                <div class="flex border-">
+                                    <button class="ml-2 mr-4 mt-1 p-1 pl-2 pr-2 rounded-sm bg-blue-900 text-white text-sm" onClick={() => handleAcceptFriendrequestClick(req.id)}>Accept</button>
+                                    <button class="mt-1 p-1 pl-2 pr-2 rounded-sm bg-slate-400 text-white text-sm">Delete</button>
+                                </div>
+                            </div>
+                        </div>
                     ))}
                 </div>}
             <button class= 'absolute right-5 mr-2 text-white' onClick={handleLogoutClick} >Logout</button>
