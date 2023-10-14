@@ -43,7 +43,7 @@ function SideNav () {
     }
     return(
         <div className="fixed flex h-[calc(100vh-40px)] top-10 justify-center w-80 bg-slate-800 border-slate-600 border">
-            <div class = "flex flex-col w-40">
+            <div className= "flex flex-col w-40">
                 {friendsList.map && friendsList.map((item) => (
                     <button className="bg-white m-1" onClick={() => handleFriendClick(item.id)}>{ item.name ? item.name: item.email}</button>
                 ))}

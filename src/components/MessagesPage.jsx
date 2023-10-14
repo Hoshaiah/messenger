@@ -41,7 +41,7 @@ function MessagesPage () {
         }
       }, [messagesState]);
     return (
-        <div class = "fixed top-10 left-80 p-0 w-[calc(100vw-320px)] h-[calc(100vh-120px)] flex flex-col justify-between">
+        <div className= "fixed top-10 left-80 p-0 w-[calc(100vw-320px)] h-[calc(100vh-120px)] flex flex-col justify-between">
            <div className='h-10 w-full bg-slate-800 text-white border border-slate-600'>
                 <h1 className='m-2'>{messagesState.currentMessageView}</h1> 
             </div> 
