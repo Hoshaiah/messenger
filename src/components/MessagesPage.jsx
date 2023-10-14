@@ -46,8 +46,8 @@ function MessagesPage () {
                 <h1 className='m-2'>{messagesState.currentMessageView}</h1> 
             </div> 
             <div ref={scrollRef} className='flex flex-1 flex-col overflow-y-scroll pb-2 bg-slate-200'>
-                {messagesState.messageGroup[messagesState.currentMessageView] && messagesState.messageGroup[messagesState.currentMessageView].map((message) => (
-                    <div className="flex w-full">
+                {messagesState.messageGroup[messagesState.currentMessageView] && messagesState.messageGroup[messagesState.currentMessageView].map((message, index) => (
+                    <div key={index} className="flex w-full">
                         {message.sender_id === currentuserState.userInfo.id ?
                             <div className='bg-blue-500 text-white m-1 p-1.5 rounded-md max-w-md w-fit ml-auto'>{message.body}</div>
                             :
