@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthorization, setCurrentUserInfo} from "../redux/currentuserSlice";
-import Constants from '../constants';
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
 import Cookies from 'js-cookie';
 import { loginUser, signupUser } from '../services/actionServices';
 
 function Login () {
-    const currentuser = useSelector((state) => state.currentuser)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const loginEmail = useRef()

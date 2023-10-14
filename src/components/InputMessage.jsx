@@ -2,7 +2,6 @@ import { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateMessage, updateCurrentMessageView } from "../redux/messagesSlice";
 import { sendMessage } from "../services/actionServices";
-import consumer from '../cable';
 
 function InputMessage() {
     const dispatch = useDispatch()

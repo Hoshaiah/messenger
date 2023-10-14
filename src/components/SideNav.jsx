@@ -1,9 +1,7 @@
-import logo from '../logo.svg';
-import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getUserChannels, retrieveFriends, retrieveMessages} from '../services/actionServices';
+import { retrieveFriends, retrieveMessages} from '../services/actionServices';
 import { updateCurrentMessageView, loadMessages} from '../redux/messagesSlice';
 import { setAuthorization, setCurrentUserInfo } from "../redux/currentuserSlice";
 import Cookies from "js-cookie";

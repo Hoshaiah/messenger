@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react"
 import { useSelector, useDispatch } from "react-redux";
-import { updateMessage, updateCurrentMessageView, loadMessages} from "../redux/messagesSlice";
-import InputMessage from "./InputMessage";
+import { loadMessages} from "../redux/messagesSlice";
 import { retrieveMessages } from "../services/actionServices";
 import { setAuthorization, setCurrentUserInfo } from "../redux/currentuserSlice";
 import Cookies from "js-cookie";

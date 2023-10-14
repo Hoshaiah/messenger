@@ -1,8 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
-import SideNav from './components/SideNav';
 import Main from './components/Main';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

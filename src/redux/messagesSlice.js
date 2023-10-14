@@ -1,4 +1,3 @@
-// src/redux/counterSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const messagesSlice = createSlice({
@@ -9,7 +8,6 @@ const messagesSlice = createSlice({
   },
   reducers: {
     updateMessage: (state, action) => {
-      // state.messageGroup[action.payload.name] = [...state.messageGroup[action.payload.name], action.payload.message]
       let group = state.messageGroup[action.payload.id]
       if (!group) {
         state.messageGroup[action.payload.id] = [action.payload.message]

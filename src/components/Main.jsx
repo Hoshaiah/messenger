@@ -11,7 +11,6 @@ function Main () {
     const dispatch = useDispatch()
     const messagesState = useSelector((state) => state.messages)
     const currentuser = useSelector((state) => state.currentuser)
-    const inputMessage = useRef('')
     const cableRef = useRef(null)
 
     useEffect(() => {
