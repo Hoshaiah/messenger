@@ -170,3 +170,21 @@ export const getUserChannels = async (auth) => {
     })
     const data = await resp.json()
 }
+
+export const searchUsers = async (query) => {
+    console.log(query)
+    const resp = await fetch(`${Constants.server}users/search?user[query]=${query}`, {
+        method: 'GET', // Specify the request method as POST
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': auth,
+        },
+    })
+    if(resp.status >= 200 && resp.status <= 300) {
+        const data = await resp.json()
+        data.status = resp.status
+        return data
+    } else {
+        return resp
+    }
+}

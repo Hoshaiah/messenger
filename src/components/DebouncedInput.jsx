@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { searchUsers } from '../services/actionServices';
 
 function DebouncedInput(props) {
     const {searchInput, setSearchInput, searchRef} = props
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            console.log(`Making request with query: ${searchInput}`);
+        const timer = setTimeout(async () => {
+            if(searchRef.current.value) {
+                const resp = await searchUsers(searchRef.current.value);
+            }
         }, 500); 
 
         return () => {
