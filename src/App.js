@@ -13,7 +13,6 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const jwt_token = Cookies.get('jwt_token')
   const userInfo = localStorage.userInfo ? JSON.parse(localStorage.userInfo) : ''
-  dispatch(setAuthorization(jwt_token))
   
   useEffect(() => {
     if(currentuser.authorization) {
@@ -22,8 +21,9 @@ function App() {
       setIsAuthenticated(false)
     }
   }, [currentuser])
-
+  
   useEffect(() => {
+    dispatch(setAuthorization(jwt_token))
     dispatch(setCurrentUserInfo(userInfo))
   },[])
   
