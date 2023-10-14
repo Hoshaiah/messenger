@@ -37,9 +37,9 @@ function SearchBar () {
 
 
     return (
-        <div class= "absolute w-1/2 h-40 top-0 z-10">
-          <div class='flex w-full h-full justify-center'>
-                  <button ref={buttonRef}class= {`w-64 h-6 rounded-sm bg-white mt-2 ${borderFocus ? 'hidden' : ''} text-slate-400`} onClick={handleSearchBarButtonClick}> {searchInput ? `Search: ${searchInput}` : 'Add friend'}</button>
+        <div className= "absolute w-1/2 h-40 top-0 z-10">
+          <div className='flex w-full h-full justify-center'>
+                  <button ref={buttonRef}className= {`w-64 h-6 rounded-sm bg-white mt-2 ${borderFocus ? 'hidden' : ''} text-slate-400`} onClick={handleSearchBarButtonClick}> {searchInput ? `Search: ${searchInput}` : 'Add friend'}</button>
                   {borderFocus && 
                       <div ref={bigSearchRef} id= 'input2' class = "flex w-full h-full overflow-visible justify-center bg-slate-600">
                           <DebouncedInput

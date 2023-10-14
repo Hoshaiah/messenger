@@ -65,25 +65,25 @@ function TopNav () {
       }, []);
 
     return (
-        <div class="flex items-center justify-center w-full h-10 bg-slate-800 border border-slate-600 overflow-visible" >
+        <div className="flex items-center justify-center w-full h-10 bg-slate-800 border border-slate-600 overflow-visible" >
             <SearchBar/>
-            <button ref={friendRequestButton} class= 'absolute right-28 mr-2 text-white' onClick={handleFriendrequestClick} >Friend Requests</button>
+            <button ref={friendRequestButton} className= 'absolute right-28 mr-2 text-white' onClick={handleFriendrequestClick} >Friend Requests</button>
             {friendBox && 
-                <div ref={friendDiv} class='absolute rounded-sm right-16 w-60 h-80 top-8 z-40 bg-slate-300'>
+                <div ref={friendDiv} className='absolute rounded-sm right-16 w-60 h-80 top-8 z-40 bg-slate-300'>
                     {friendRequests && friendRequests.map((req)=>(
-                        <div class="flex p-1 border-b-2 border-slate-200 py-2">
-                            <div class="flex justify-center items-center rounded-full bg-slate-200 w-16 h-12 text-slate-800">{req.name[0].toUpperCase()}</div>
-                            <div class=" w-full">
-                                <p class="ml-4">{req.name}</p>
-                                <div class="flex border-">
-                                    <button class="ml-2 mr-4 mt-1 p-1 pl-2 pr-2 rounded-sm bg-blue-900 text-white text-sm" onClick={() => handleAcceptFriendrequestClick(req.id)}>Accept</button>
-                                    <button class="mt-1 p-1 pl-2 pr-2 rounded-sm bg-slate-400 text-white text-sm">Delete</button>
+                        <div className="flex p-1 border-b-2 border-slate-200 py-2">
+                            <div className="flex justify-center items-center rounded-full bg-slate-200 w-16 h-12 text-slate-800">{req.name[0].toUpperCase()}</div>
+                            <div className=" w-full">
+                                <p className="ml-4">{req.name}</p>
+                                <div className="flex border-">
+                                    <button className="ml-2 mr-4 mt-1 p-1 pl-2 pr-2 rounded-sm bg-blue-900 text-white text-sm" onClick={() => handleAcceptFriendrequestClick(req.id)}>Accept</button>
+                                    <button className="mt-1 p-1 pl-2 pr-2 rounded-sm bg-slate-400 text-white text-sm">Delete</button>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>}
-            <button class= 'absolute right-5 mr-2 text-white' onClick={handleLogoutClick} >Logout</button>
+            <button className= 'absolute right-5 mr-2 text-white' onClick={handleLogoutClick} >Logout</button>
         </div>
     )
 }

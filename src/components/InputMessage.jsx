@@ -55,11 +55,11 @@ function InputMessage() {
     }
 
     return(
-        <div class='fixed left-80 bottom-0 h-20 w-[calc(100vw-20rem)] z-10 flex items-center p-2 bg-slate-800 border border-slate-600'>
+        <div className='fixed left-80 bottom-0 h-20 w-[calc(100vw-20rem)] z-10 flex items-center p-2 bg-slate-800 border border-slate-600'>
             <input 
                 onKeyDown={(e) => handleKeyDown(e)} 
                 ref={inputMessage}
-                class="no-scrollbar h-full w-full p-2 bg-slate-800 text-white focus:outline-none"
+                className="no-scrollbar h-full w-full p-2 bg-slate-800 text-white focus:outline-none"
                 >
             </input>
         </div>

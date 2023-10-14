@@ -43,16 +43,16 @@ function MessagesPage () {
       }, [messagesState]);
     return (
         <div class = "fixed top-10 left-80 p-0 w-[calc(100vw-320px)] h-[calc(100vh-120px)] flex flex-col justify-between">
-           <div class='h-10 w-full bg-slate-800 text-white border border-slate-600'>
-                <h1 class='m-2'>{messagesState.currentMessageView}</h1> 
+           <div className='h-10 w-full bg-slate-800 text-white border border-slate-600'>
+                <h1 className='m-2'>{messagesState.currentMessageView}</h1> 
             </div> 
-            <div ref={scrollRef} class='flex flex-1 flex-col overflow-y-scroll pb-2 bg-slate-200'>
+            <div ref={scrollRef} className='flex flex-1 flex-col overflow-y-scroll pb-2 bg-slate-200'>
                 {messagesState.messageGroup[messagesState.currentMessageView] && messagesState.messageGroup[messagesState.currentMessageView].map((message) => (
-                    <div class="flex w-full">
+                    <div className="flex w-full">
                         {message.sender_id === currentuserState.userInfo.id ?
-                            <div class='bg-blue-500 text-white m-1 p-1.5 rounded-md max-w-md w-fit ml-auto'>{message.body}</div>
+                            <div className='bg-blue-500 text-white m-1 p-1.5 rounded-md max-w-md w-fit ml-auto'>{message.body}</div>
                             :
-                            <div class='bg-slate-800 text-white m-1 p-1.5 rounded-md max-w-md w-fit'>{message.body}</div>
+                            <div className='bg-slate-800 text-white m-1 p-1.5 rounded-md max-w-md w-fit'>{message.body}</div>
                         }
                     </div>
                 ))}
