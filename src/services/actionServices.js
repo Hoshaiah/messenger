@@ -7,7 +7,6 @@ export const loginUser = async(email, password) => {
         'Content-Type': 'application/json'
         },
         body: JSON.stringify(
-        // {name: 'sample2'}
         { 
             user: { 
                 email: email,
@@ -68,10 +67,6 @@ export const retrieveMessages = async (auth, recipient_type, sender_id) => {
             'Content-Type':'application/json',
             'Authorization': auth
         },
-        // body: JSON.stringify({
-        //     recipient_type,
-        //     sender_id,
-        // })
     })
     if(resp.status >=200 && resp.status <= 300) {
         const data = await resp.json()
@@ -162,7 +157,7 @@ export const sendFriendrequest = async (auth, user_id, friend_id) => {
 }
 export const getUserChannels = async (auth) => {
     const resp = await fetch(`${Constants.server}channels`, {
-        method: 'GET', // Specify the request method as POST
+        method: 'GET', 
         headers: {
             'Content-Type': 'application/json',
             'Authorization': auth,
@@ -174,7 +169,7 @@ export const getUserChannels = async (auth) => {
 export const searchUsers = async (query) => {
     console.log(query)
     const resp = await fetch(`${Constants.server}users/search?user[query]=${query}`, {
-        method: 'GET', // Specify the request method as POST
+        method: 'GET', 
         headers: {
             'Content-Type': 'application/json',
             // 'Authorization': auth,
