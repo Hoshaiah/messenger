@@ -2,7 +2,6 @@ import logo from '../logo.svg';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { increment, decrement } from "../redux/counterSlice";
 import { useEffect, useState } from 'react';
 import { getUserChannels, retrieveFriends, retrieveMessages} from '../services/actionServices';
 import { updateCurrentMessageView, loadMessages} from '../redux/messagesSlice';

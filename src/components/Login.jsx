@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 import { loginUser, signupUser } from '../services/actionServices';
 
 function Login () {
-    const counter = useSelector((state) => state.counter)
     const currentuser = useSelector((state) => state.currentuser)
     const dispatch = useDispatch()
     const navigate = useNavigate()
