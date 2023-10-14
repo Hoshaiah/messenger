@@ -28,7 +28,6 @@ function Main () {
             disconnected: () => console.log('disconnected'),
             received: (data) => {
                 console.log(data)
-                // handleNewMessage(data)
                 dispatch(updateMessage({
                     id: data.sender_id,
                     message: {
