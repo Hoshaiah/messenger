@@ -50,10 +50,17 @@ function SearchBar () {
                             searchResults={searchResults}
                             setSearchResults={setSearchResults}
                           />
-                          <div className="w-full max-h-72 bg-white">
+                          <div className="w-full max-h-72 bg-white overflow-y-scroll py-1 px-3">
                             {searchResults && searchResults.map(item => (
-                              <div>
-                                {item.name}
+                              <div className="flex items-center my-1 h-12">
+                                <div className="flex items-center justify-center rounded-full w-8 h-8 bg-gray-400 text-white">{item.name[0].toUpperCase()}</div>
+                                <div className="flex flex-col ml-2">
+                                  <div className="">{item.name}</div>
+                                  <div className="flex text-sm text-gray-700">
+                                    <h2 className="mr-2">#{item.id}</h2>
+                                    <h2 className="">{item.email}</h2>
+                                  </div>
+                                </div>
                               </div>
                             ))}
                           </div>
