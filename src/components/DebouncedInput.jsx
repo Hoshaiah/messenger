@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { searchUsers } from '../services/actionServices';
+import { useDispatch } from 'react-redux';
 
 function DebouncedInput(props) {
-    const {searchInput, setSearchInput, searchRef} = props
+    const {searchInput, setSearchInput, searchRef, searchResults, setSearchResults} = props
 
     useEffect(() => {
         const timer = setTimeout(async () => {
             if(searchRef.current.value) {
                 const resp = await searchUsers(searchRef.current.value);
+                setSearchResults(resp.data)
+            } else {
+                setSearchResults([])
             }
         }, 500); 
 

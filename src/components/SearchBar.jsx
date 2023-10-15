@@ -7,6 +7,7 @@ function SearchBar () {
     const buttonRef = useRef(null)
     const searchRef = useRef(null)
     const [searchInput, setSearchInput] = useState("")
+    const [searchResults, setSearchResults] = useState([])
 
     const handleSearchBarButtonClick = () => {
         setBorderFocus(true)
@@ -35,18 +36,27 @@ function SearchBar () {
         }
       }, [borderFocus])
 
-
+    console.log(searchResults)
     return (
-        <div className= "absolute w-1/2 h-40 top-0 z-10">
+        <div className= "absolute w-1/2 max-h-80 top-0 z-10">
           <div className='flex w-full h-full justify-center'>
-                  <button ref={buttonRef}className= {`w-64 h-6 rounded-sm bg-white mt-2 ${borderFocus ? 'hidden' : ''} text-slate-400`} onClick={handleSearchBarButtonClick}> {searchInput ? `Search: ${searchInput}` : 'Add friend'}</button>
+                  <button ref={buttonRef} className= {`w-64 h-6 rounded-sm bg-white mt-2 ${borderFocus ? 'hidden' : ''} text-slate-400`} onClick={handleSearchBarButtonClick}> {searchInput ? `Search: ${searchInput}` : 'Add friend'}</button>
                   {borderFocus && 
-                      <div ref={bigSearchRef} id= 'input2' className= "flex w-full h-full overflow-visible justify-center bg-slate-600">
+                      <div ref={bigSearchRef} id= 'input2' className= "flex flex-col items-center w-full h-full overflow-visible bg-slate-600 px-2 pb-2">
                           <DebouncedInput
                             searchRef={searchRef}
                             searchInput={searchInput}
                             setSearchInput={setSearchInput}
+                            searchResults={searchResults}
+                            setSearchResults={setSearchResults}
                           />
+                          <div className="w-full max-h-72 bg-white">
+                            {searchResults && searchResults.map(item => (
+                              <div>
+                                {item.name}
+                              </div>
+                            ))}
+                          </div>
                       </div>
                   }
           </div>
