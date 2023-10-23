@@ -50,8 +50,8 @@ function SearchBar () {
                             searchResults={searchResults}
                             setSearchResults={setSearchResults}
                           />
-                          <div className="w-full max-h-72 bg-white overflow-y-scroll py-1 px-3">
-                            {searchResults && searchResults.map(item => (
+                          {searchInput.length > 0 && <div className="w-full max-h-72 bg-white overflow-y-scroll py-1 px-3">
+                            {searchResults.map(item => (
                               <div className="flex items-center my-1 h-12">
                                 <div className="flex items-center justify-center rounded-full w-8 h-8 bg-gray-400 text-white">{item.name[0].toUpperCase()}</div>
                                 <div className="flex flex-col ml-2">
@@ -63,7 +63,12 @@ function SearchBar () {
                                 </div>
                               </div>
                             ))}
-                          </div>
+                            {searchResults.length === 0 && searchInput.length > 0 &&
+                              <div className="flex items-center my-1 h-12">
+                                No results found
+                              </div>
+                            }
+                          </div>}
                       </div>
                   }
           </div>

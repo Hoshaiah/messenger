@@ -9,7 +9,11 @@ function DebouncedInput(props) {
         const timer = setTimeout(async () => {
             if(searchRef.current.value) {
                 const resp = await searchUsers(searchRef.current.value);
-                setSearchResults(resp.data)
+                if (resp.data.length > 0) {
+                    setSearchResults(resp.data)
+                } else {
+                    setSearchResults([])
+                }
             } else {
                 setSearchResults([])
             }
